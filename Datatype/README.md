@@ -1,62 +1,35 @@
+# Matrice de correspondance MSSQL ↔ PostgreSQL
 
-## **Données binaires et grandes données**
-
-| Type                              | Description                  | MSSQL | PostgreSQL | Oracle |
-| --------------------------------- | ---------------------------- | ----- | ---------- | ------ |
-| `BLOB` / `VARBINARY(MAX)`         | Stockage de données binaires | ✅     | `BYTEA`    | ✅      |
-| `CLOB` / `TEXT` / `NVARCHAR(MAX)` | Stockage de texte volumineux | ✅     | `TEXT`     | ✅      |
-| `IMAGE` (legacy)                  | Ancien type binaire          | ✅     | ❌          | ❌      |
-
----
-
-## **Données XML / JSON**
-
-| Type    | Description           | MSSQL           | PostgreSQL         | Oracle                |
-| ------- | --------------------- | --------------- | ------------------ | --------------------- |
-| `XML`   | Données XML natives   | ✅               | ✅                  | `XMLTYPE` ✅           |
-| `JSON`  | Données JSON          | NVARCHAR(MAX) ✅ | `JSON` / `JSONB` ✅ | `CLOB` + check JSON ✅ |
-| `JSONB` | JSON binaire optimisé | ❌               | ✅                  | ❌                     |
-
----
-
-## **Données géographiques / spatiales**
-
-| Type        | Description                  | MSSQL | PostgreSQL              | Oracle                            |
-| ----------- | ---------------------------- | ----- | ----------------------- | --------------------------------- |
-| `GEOGRAPHY` | Coordonnées GPS (ellipsoïde) | ✅     | `GEOGRAPHY` (PostGIS) ✅ | `SDO_GEOMETRY` (Oracle Spatial) ✅ |
-| `GEOMETRY`  | Formes géométriques 2D       | ✅     | `GEOMETRY` (PostGIS) ✅  | `SDO_GEOMETRY` ✅                  |
+| MSSQL (exotique)           | Correspondance PostgreSQL | Notes                        |
+| -------------------------- | ------------------------- | ---------------------------- |
+| `uniqueidentifier`         | `uuid`                    | UUID natif dans PG           |
+| `hierarchyid`              | –                         | Tester sur MSSQL seule       |
+| `geometry`                 | `geometry` (PostGIS)      | Extension PostGIS nécessaire |
+| `geography`                | `geography` (PostGIS)     | Extension PostGIS nécessaire |
+| `xml`                      | `xml`                     | Type natif dans PG           |
+| `varbinary(max)`           | `bytea`                   | Conversion binaire           |
+| `nvarchar(max)`            | `text` ou `varchar`(MAX)  | NCLOB → TEXT en PG           |
+| `sql_variant`              | –                         | Tester sur MSSQL seule       |
+| `image`                    | `bytea`                   | Conversion binaire           |
+| `text`                     | `text`                    | Correspondance directe       |
+| `ntext`                    | `text`                    | NCLOB → TEXT en PG           |
+| `money` / `smallmoney`     | `money`                   | Conversion monétaire directe |
+| `timestamp` / `rowversion` | –                         | Tester sur MSSQL seule       |
 
 ---
 
-## **Données temporelles avancées**
-
-| Type             | Description                    | MSSQL | PostgreSQL      | Oracle                       |
-| ---------------- | ------------------------------ | ----- | --------------- | ---------------------------- |
-| `DATETIMEOFFSET` | Date/heure avec fuseau horaire | ✅     | `TIMESTAMPTZ` ✅ | `TIMESTAMP WITH TIME ZONE` ✅ |
-| `INTERVAL`       | Durée entre deux dates         | ❌     | ✅               | ✅                            |
-
----
-
-## ** Types spécialisés**
-
-| Type                        | Description               | MSSQL                | PostgreSQL | Oracle                      |
-| --------------------------- | ------------------------- | -------------------- | ---------- | --------------------------- |
-| `UUID` / `UNIQUEIDENTIFIER` | Identifiant global unique | `UNIQUEIDENTIFIER` ✅ | `UUID` ✅   | `RAW(16)` ou `SYS_GUID()` ✅ |
-| `HIERARCHYID`               | Arbres hiérarchiques      | ✅                    | ❌          | ❌                           |
-| `SQL_VARIANT`               | Stocke plusieurs types    | ✅                    | ❌          | ❌                           |
-| `ENUM`                      | Valeurs prédéfinies       | ❌                    | ✅          | `CHECK` ou `TYPE` ✅         |
-
----
-
-## **Types financiers / numériques avancés**
-
-| Type                   | Description          | MSSQL | PostgreSQL  | Oracle       |
-| ---------------------- | -------------------- | ----- | ----------- | ------------ |
-| `MONEY` / `SMALLMONEY` | Montant monétaire    | ✅     | ❌ (numeric) | ✅ (`NUMBER`) |
-| `DECIMAL` / `NUMERIC`  | Précision arbitraire | ✅     | ✅           | ✅            |
-| `FLOAT` / `REAL`       | Virgule flottante    | ✅     | ✅           | ✅            |
-
-
+| PostgreSQL (exotique) | Correspondance MSSQL       | Notes                        |
+| --------------------- | -------------------------- | ---------------------------- |
+| `bytea`               | `varbinary(max)` / `image` | Conversion binaire           |
+| `json` / `jsonb`      | –                          | Tester sur PostgreSQL seule  |
+| `xml`                 | `xml`                      | Type natif                   |
+| `uuid`                | `uniqueidentifier`         | UUID natif                   |
+| `interval`            | –                          | Tester sur PostgreSQL seule  |
+| `money`               | `money` / `smallmoney`     | Conversion monétaire         |
+| `inet`                | –                          | Tester sur PostgreSQL seule  |
+| `ARRAY`               | –                          | Tester sur PostgreSQL seule  |
+| `geometry` (PostGIS)  | `geometry` (MSSQL)         | Extension PostGIS nécessaire |
+| `geography` (PostGIS) | `geography` (MSSQL)        | Extension PostGIS nécessaire |
 
 
 
