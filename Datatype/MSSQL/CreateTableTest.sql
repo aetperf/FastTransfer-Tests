@@ -1,68 +1,37 @@
 USE [FastTransfer-Tests];
 GO
 
--- Table pour VARBINARY / BLOB
-CREATE TABLE TestVarBinary (
-    ID INT PRIMARY KEY,
-    Data VARBINARY(MAX)
-);
+-- Types anciens / dépréciés
+CREATE TABLE Test_image (ID INT PRIMARY KEY, Data IMAGE);
+CREATE TABLE Test_text (ID INT PRIMARY KEY, Data TEXT);
+CREATE TABLE Test_ntext (ID INT PRIMARY KEY, Data NTEXT);
 
--- Table pour TEXT / CLOB
-CREATE TABLE TestText (
-    ID INT PRIMARY KEY,
-    Data TEXT
-);
+-- Identifiant unique
+CREATE TABLE Test_uniqueidentifier (ID INT PRIMARY KEY, Data UNIQUEIDENTIFIER);
 
--- Table pour XML
-CREATE TABLE TestXML (
-    ID INT PRIMARY KEY,
-    Data XML
-);
+-- Dates et heures exotiques
+CREATE TABLE Test_datetimeoffset (ID INT PRIMARY KEY, Data DATETIMEOFFSET);
 
--- Table pour Geography
-CREATE TABLE TestGeography (
-    ID INT PRIMARY KEY,
-    Data GEOGRAPHY
-);
+-- Types monétaires spécifiques
+CREATE TABLE Test_money (ID INT PRIMARY KEY, Data MONEY);
+CREATE TABLE Test_smallmoney (ID INT PRIMARY KEY, Data SMALLMONEY);
 
--- Table pour Geometry
-CREATE TABLE TestGeometry (
-    ID INT PRIMARY KEY,
-    Data GEOMETRY
-);
+-- Spéciaux SQL Server
+CREATE TABLE Test_sql_variant (ID INT PRIMARY KEY, Data SQL_VARIANT);
+CREATE TABLE Test_hierarchyid (ID INT PRIMARY KEY, Data HIERARCHYID);
 
--- Table pour JSON (stocké en NVARCHAR)
-CREATE TABLE TestJSON (
-    ID INT PRIMARY KEY,
-    Data NVARCHAR(MAX)
-);
+-- Spatiaux
+CREATE TABLE Test_geometry (ID INT PRIMARY KEY, Data GEOMETRY);
+CREATE TABLE Test_geography (ID INT PRIMARY KEY, Data GEOGRAPHY);
 
--- Table pour HIERARCHYID
-CREATE TABLE TestHierarchyID (
-    ID INT PRIMARY KEY,
-    Data HIERARCHYID
-);
+-- Binaires et gros textes
+CREATE TABLE Test_varbinary_max (ID INT PRIMARY KEY, Data VARBINARY(MAX));
+CREATE TABLE Test_binary (ID INT PRIMARY KEY, Data BINARY(100));
+CREATE TABLE Test_nvarchar_max (ID INT PRIMARY KEY, Data NVARCHAR(MAX));
 
--- Table pour SQL_VARIANT
-CREATE TABLE TestSQLVariant (
-    ID INT PRIMARY KEY,
-    Data SQL_VARIANT
-);
+-- Timestamp / Rowversion
+CREATE TABLE Test_timestamp (ID INT PRIMARY KEY, Data TIMESTAMP);
 
--- Table pour MONEY
-CREATE TABLE TestMoney (
-    ID INT PRIMARY KEY,
-    Data MONEY
-);
+-- XML
+CREATE TABLE Test_xml (ID INT PRIMARY KEY, Data XML);
 
--- Table pour DATETIMEOFFSET
-CREATE TABLE TestDatetimeOffset (
-    ID INT PRIMARY KEY,
-    Data DATETIMEOFFSET
-);
-
--- Table pour UNIQUEIDENTIFIER (UUID)
-CREATE TABLE TestUUID (
-    ID INT PRIMARY KEY,
-    Data UNIQUEIDENTIFIER
-);
