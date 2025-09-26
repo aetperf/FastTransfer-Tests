@@ -35,7 +35,7 @@ FROM generate_series(1,100) AS gs;
 
 -- INET (IP addresses)
 INSERT INTO source.Test_inet (Data)
-SELECT '192.168.' || (gs % 255) || '.' || ((gs*3) % 255)::text
+SELECT ('192.168.' || (gs % 255) || '.' || ((gs*3) % 255))::inet
 FROM generate_series(1,100) AS gs;
 
 -- ARRAY
